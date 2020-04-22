@@ -12,7 +12,15 @@
   "files": [
     "build"
   ],
-  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/NickFoden/cloudinary-client/issues"
+  },
+  "homepage": "https://github.com/NickFoden/cloudinary-client",
+  "keywords": [
+    "cloudinary",
+    "upload",
+    "images"
+  ],
   "author": "@nickfoden",
   "license": "ISC",
   "devDependencies": {

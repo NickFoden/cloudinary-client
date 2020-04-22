@@ -224,38 +224,33 @@ var sha1 = createCommonjsModule(function (module) {
 })();
 });
 
-/**
- * Create a client
- * const cloudClient = require("cloudinary-client");
- * const CloudinaryClient = cloudClient.createClient({
- *  apiKey:API_KEY,
- *  apiSecret: API_SECRET,
- *  cloudName: CLOUD_NAME
- * })
- */
 var createClient = function (params) {
-    if (!params || !params.apiKey || !params.apiSecret || !params.cloudName) {
-        throw new Error("Missing params required in createClient");
-    }
-    var uploadToCloudinary = function (e, format, public_id) {
+    var uploadToCloudinary = function (e, public_id, format, upload_preset) {
+        if (public_id === void 0) { public_id = ""; }
         if (format === void 0) { format = "image"; }
-        if (public_id === void 0) { public_id = "new"; }
+        if (upload_preset === void 0) { upload_preset = ""; }
         var files = e.target.files;
         var API_KEY = params.apiKey;
         var API_SECRET = params.apiSecret;
         var CLOUD_NAME = params.cloudName;
-        var PUBLIC_ID = public_id;
-        var TIME = Date.now();
+        var FORMAT = format;
+        var PUBLIC_ID = public_id === "" ? files[0]["name"].replace(/\.[^/.]+$/, "") : public_id;
+        var UPLOAD_PRESET = upload_preset;
+        var time = Date.now();
         var data = new FormData();
-        var signature = sha1("public_id=" + PUBLIC_ID + "&timestamp=" + TIME + API_SECRET);
         data.append("file", files[0]);
-        data.append("timestamp", "" + TIME);
+        data.append("timestamp", "" + time);
         data.append("public_id", PUBLIC_ID);
         data.append("api_key", API_KEY);
+        var signature = sha1("public_id=" + PUBLIC_ID + "&timestamp=" + time + API_SECRET);
+        if (UPLOAD_PRESET !== "") {
+            signature = sha1("public_id=" + PUBLIC_ID + "&timestamp=" + time + "&upload_preset=" + UPLOAD_PRESET + API_SECRET);
+            data.append("upload_preset", UPLOAD_PRESET);
+        }
         data.append("signature", signature);
-        var theURL = "https://api.cloudinary.com/v1_1/" + CLOUD_NAME + "/" + format + "/upload";
+        var uploadURL = "https://api.cloudinary.com/v1_1/" + CLOUD_NAME + "/" + FORMAT + "/upload";
         return new Promise(function (resolve, reject) {
-            fetch(theURL, {
+            fetch(uploadURL, {
                 method: "POST",
                 body: data,
             })
