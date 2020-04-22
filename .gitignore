@@ -1,0 +1,12 @@
+# dependencies
+/node_modules
+
+#coverage
+/coverage
+
+# secrets
+secrets.ts
+
+# misc
+.DS_Store
+npm-debug.log*

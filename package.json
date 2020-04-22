@@ -1,0 +1,39 @@
+{
+  "name": "cloudinary-client",
+  "version": "0.0.1",
+  "description": "",
+  "main": "build/index.js",
+  "module": "build/index.es.js",
+  "jsnext:main": "build/index.es.js",
+  "scripts": {
+    "build": "rollup -c",
+    "test": "jest --coverage"
+  },
+  "files": [
+    "build"
+  ],
+  "keywords": [],
+  "author": "@nickfoden",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/isomorphic-fetch": "0.0.35",
+    "@types/jest": "^25.2.1",
+    "isomorphic-fetch": "^2.2.1",
+    "jest": "^25.3.0",
+    "rollup": "^1.27.13",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.0",
+    "rollup-plugin-typescript2": "^0.25.3",
+    "ts-jest": "^25.3.1",
+    "typescript": "^3.7.3"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "@types/sha1": "^1.1.2",
+    "sha1": "^1.1.1"
+  }
+}
